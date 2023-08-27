@@ -31,22 +31,3 @@ npm install
 npm start
 
 5. Open your web browser and go to `http://localhost:3000` to access the application.
-
-## File Structure
-
-The project follows the following file structure:
-
-- `public/`: Static files for the client-side.
-- `src/`: Main source code directory.
-- `server/`: Backend server code.
- - `app.js`: Express.js server configuration.
-- `client/`: Frontend code.
- - `index.html`: Main HTML file.
- - `styles.css`: Main CSS file.
- - `index.js`: Main JavaScript file for frontend logic.
- - `assets/`: Directory for images and assets.
- - `components/`: Directory for UI components.
-
-## Contributing
-
-Contributions are welcome! If you find any issues or want to add new features, please fork the repository, create a new branch, make your changes, and then create a pull request.
