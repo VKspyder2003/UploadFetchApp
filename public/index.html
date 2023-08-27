@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>File Upload and Information Access</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <h1>File Upload and Information Access</h1>
+
+    <h2>Upload a File</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Uploaded Files</h2>
+    <ul id="fileList"></ul>
+
+    <h2>File Details</h2>
+    <div id="fileDetails"></div>
+
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        const fileList = document.getElementById('fileList');
+
+        uploadForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(uploadForm);
+
+            try {
+                const response = await fetch('http://localhost:3000/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                console.log(data);
+
+                // Refresh the file list
+                fetchFiles();
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        });
+
+        async function fetchFiles() {
+            // Fetching files
+            try {
+                const response = await fetch('http://localhost:3000/files');
+                const data = await response.json();
+
+                fileList.innerHTML = '';
+                data.files.forEach((fileInfo) => {
+                    const li = document.createElement('li');
+                    const fileNameWithoutTimestamp = fileInfo.filename.split('-').slice(1).toString().replaceAll(',', '-');
+                    const anchor = document.createElement('a'); 
+                    anchor.href = '#'; 
+                    anchor.textContent = fileNameWithoutTimestamp;
+                    anchor.setAttribute('data-filename', fileInfo.filename); 
+                    li.appendChild(anchor); 
+                    fileList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Error fetching files:', error);
+            }
+        }
+
+        async function fetchFileDetails(filename) {
+            try {
+                const response = await fetch(`http://localhost:3000/file/${filename}`); 
+                const data = await response.json();
+
+                const fileDetails = document.getElementById('fileDetails');
+                const fileExtension = filename.split('.').pop().toLowerCase(); //Extracting file extension
+
+                // For extracting different file types
+                const fileTypes = {
+                    pdf: 'PDF Document',
+                    doc: 'Microsoft Word Document',
+                    docx: 'Microsoft Word Document',
+                    xls: 'Microsoft Excel Spreadsheet',
+                    xlsx: 'Microsoft Excel Spreadsheet',
+                    ppt: 'Microsoft PowerPoint Presentation',
+                    pptx: 'Microsoft PowerPoint Presentation',
+                    jpg: 'JPEG Image',
+                    jpeg: 'JPEG Image',
+                    png: 'PNG Image',
+                    gif: 'GIF Image',
+                    mp3: 'MP3 Audio',
+                    wav: 'WAV Audio',
+                    mp4: 'MP4 Video',
+                    avi: 'AVI Video',
+                    txt: 'Text Document',
+                    csv: 'CSV File',
+                    xml: 'XML File',
+                    json: 'JSON File',
+                    zip: 'ZIP Archive',
+                    rar: 'RAR Archive',
+                    exe: 'Executable File',
+                    default: 'File'
+                };
+
+                const fileType = fileTypes[fileExtension] || fileTypes.default;
+                const fileSize = (data.fileInfo.size / 1024).toFixed(2); // Convert size to KB
+
+                fileNameWoExt = filename.split('.')[0];
+                const fileNameWithoutTimestamp = fileNameWoExt.split('-').slice(1).toString().replaceAll(',', '-');
+
+                //Displaying File Details
+                fileDetails.innerHTML = `
+                    <p>Filename: ${fileNameWithoutTimestamp}</p>
+                    <p>FileType: ${fileType}</p>
+                    <p>Size: ${fileSize} KB</p>
+                    <p>Created at: ${new Date(data.fileInfo.createdAt).toLocaleString()}</p>`;
+
+                //Displaying the content of the file if it is text form
+                if (fileExtension === 'txt') {
+                    const textContentResponse = await fetch(`http://localhost:3000/file/content/${filename}`);
+                    const textContent = await textContentResponse.text();
+                    fileDetails.innerHTML += `<p>Content:</p><pre>${textContent}</pre>`;
+                }
+            } catch (error) {
+                console.error('Error fetching file details:', error);
+            }
+        }
+
+        fileList.addEventListener('click', (event) => {
+            //Displaying details when we click the file name
+            const clickedListItem = event.target.closest('a'); 
+            if (clickedListItem) {
+                const filename = clickedListItem.getAttribute('data-filename');
+                fetchFileDetails(filename);
+            }
+        });
+
+        // Initial fetch when the page loads
+        fetchFiles();
+
+    </script>
+</body>
+
+</html>
