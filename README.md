@@ -7,7 +7,6 @@ Welcome to the File Upload and Retrieval Web App! This web application allows us
 - Upload files through a user-friendly form.
 - View a list of uploaded files with their names and sizes.
 - Click on a file to see detailed information about it.
-- Success message displayed upon successful file upload.
 
 ## Technologies Used
 
@@ -19,10 +18,10 @@ Welcome to the File Upload and Retrieval Web App! This web application allows us
 ## Setup Instructions
 
 1. Clone the repository to your local machine using the following command:
-git clone https://github.com/your-username/file-upload-app.git
+git clone https://github.com/VKspyder2003/UploadFetchApp.git
 
 2. Navigate to the project directory:
-cd file-upload-app
+cd UploadFetchApp
 
 3. Install the project dependencies:
 npm install
