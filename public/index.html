@@ -31,7 +31,7 @@
             const formData = new FormData(uploadForm);
 
             try {
-                const response = await fetch('http://localhost:3000/upload', {
+                const response = await fetch('/api/upload', {
                     method: 'POST',
                     body: formData
                 });
@@ -49,7 +49,7 @@
         async function fetchFiles() {
             // Fetching files
             try {
-                const response = await fetch('http://localhost:3000/files');
+                const response = await fetch('/api/files');
                 const data = await response.json();
 
                 fileList.innerHTML = '';
@@ -70,7 +70,7 @@
 
         async function fetchFileDetails(filename) {
             try {
-                const response = await fetch(`http://localhost:3000/file/${filename}`); 
+                const response = await fetch(`/api/file/${filename}`); 
                 const data = await response.json();
 
                 const fileDetails = document.getElementById('fileDetails');
@@ -118,7 +118,7 @@
 
                 //Displaying the content of the file if it is text form
                 if (fileExtension === 'txt') {
-                    const textContentResponse = await fetch(`http://localhost:3000/file/content/${filename}`);
+                    const textContentResponse = await fetch(`/api/file/content/${filename}`);
                     const textContent = await textContentResponse.text();
                     fileDetails.innerHTML += `<p>Content:</p><pre>${textContent}</pre>`;
                 }

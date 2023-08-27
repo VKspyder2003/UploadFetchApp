@@ -1,12 +1,14 @@
 html {
-    margin-left: 20px;
-    margin-right: 20px;
+    padding: 10px 20px 0 20px;
+}
+
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #f4f4f4;
 }
 
@@ -21,6 +23,7 @@ body {
 
 h1 {
     color: #333;
+    margin-bottom: 20px;
 }
 
 h2 {
@@ -30,6 +33,29 @@ h2 {
 
 form {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+button[type="submit"] {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
 ul {
@@ -39,60 +65,33 @@ ul {
 
 li {
     margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
-a {
+li a {
+    display: block;
+    padding: 10px;
     color: #007bff;
     text-decoration: none;
-    cursor: pointer;
     transition: color 0.3s;
 }
 
-a:hover {
+li a:hover {
     color: #0056b3;
-    text-decoration: underline;
 }
 
 #fileDetails {
-    padding: 10px;
+    padding: 20px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #fileDetails p {
     margin-bottom: 8px;
-}
-
-button {
-    padding: 8px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-li:hover {
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-li:hover a {
-    color: #333;
-}
-
-#fileDetails:hover {
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, box-shadow 0.3s;
 }
